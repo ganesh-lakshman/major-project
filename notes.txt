@@ -1,0 +1,768 @@
+numpy
+
+jupyter notebook ->conda terminal
+jupyter lab
+
+new py3 notebook
+
+array-> homogenous, vectorised operations( [1 2 3] + [1 2 3] = [2 4 6] )
+
+l = list(range(1,4))
+**number not allowed with lists
+arr = np.arrange(1,4) ** 3
+np.power(np.array([1,2,3]), 4)
+np.negative()
+np.exp()
+np.log()
+np.sin()
+arange -> array
+range -> list
+
+x = np.arange(3)
+y = np.arange(3, 6)
+z = np.arange(6,9)
+marray = np.array([x,y,z])
+
+marray = np.array([x,y,z], dtype = np.int16)
+marray.shape
+
+marray[1, 2]
+
+marray.dtype
+
+w = np.linspace(1, 10, 50, False)
+
+
+x = np.arange(9)
+
+x[2,1]
+x = np.arange(9).reshape(3,3)
+
+x = np.arange(9).reshape(3,-1) -> -1 === unkown
+
+x = np.arange(18).reshape(2,3,3) (3,3,2) 2 different arrays
+
+(3,2,3)
+
+x[1,1,1]
+
+
+x.ravel() -> flats, modifies original array
+
+x.flatten() -> copy of the array
+
+
+x.transpose()
+x.T
+np.ones
+np.zeroes
+np.eye
+
+mat_a = np.matrix([0,3,5,5,5,2]).reshape(2,3)
+
+mat_b = np.matrix([3,4,3,5,5,2]).reshape(3,2)
+
+mat_a * mat_b
+np.matmul(mat_a, mat_b)
+
+
+np.hstack((x,y))
+
+
+
+
+
+ML-> ability to learn with data
+
+Supervised(correct labels), unsupervised(unlabelled)
+
+linear regression y = mx + c
+classification
+
+bloodsugar classification problem
+
+x1 x2 -> inpts
+
+x1 -> age
+x2 -> blood glucose levels
+
+model -0.02 * x1 - 2 * x2 + 6
+
+model = w1 * x1 + w2 * x2 + bias
+line with minimal error
+score (threshold) 1 or 0
+
+
+
+
+perceptron
+
+
+inputs -> perceptron -> output
+
+x1, x2 -> -0.02 * x1 - 2 * x2 + 6 -> 0 or 1
+
+y` { 1 if score>=0 positive [or] 0 if score < 0 negative}.
+
+
+inputs x1, x2, bias(1)
+
+x1 * w1
+x2 * w2
+1 * b
+linear combination of inputs
+
+Activationn fyuncton -> decides output
+
+stepfunction
+
+weights -> importance of input
+
+age has less effect than blood sugar levels
+
+
+
+error function
+
+in every iteration model is trained
+to adjust weights 
+
+tiny steps of adjusting -> learning rate
+
+sigmoid -> probability / likelyness
+1 / (1 + e ^ -z)
+
+z = 0.3 => 57%
+
+
+Cross Entropy
+
+
+1) blue red [line] blue red
+2) blue blue [line] red red
+
+
+1) blue90% red80% [line] blue40% red45%
+2) blue95% blue70% [line] red43 red40
+
+
+
+p(red) = 1 - p(blue)
+
+
+1) blue90% red20% [line] blue40% red55
+2) blue95 blue70 [line] red57 red60 classified correctly
+
+red20% -> 20% likely of being red
+
+ln(p(red)) + ln(p(blue)) = CE
+
+good model low CE
+
+- Esigma {yln(p) + (1-y)ln(1-p)}
+
+
+Gradient Descent -> derivatives/differentiation
+
+Keras -> opensource neural network library written in python
+
+keras on tensorflow
+
+pip install tensorflow -> git bash
+
+pip install keras
+
+
+batch/vanila gradient descent computes on entire vector -> proper learning ratealso single learning rate
+
+stochastic is optimised
+
+Adam uses stochastic -> adaptive learning rate
+
+epoch -> iteration over entire dataset
+
+divide one epoch into batches as epoch is too big
+
+1000 datapoints
+batch size = 50
+20 iterations to complete one epoch
+
+epochs less -> underfit
+more -> overfit
+epochs -> optimal amount
+
+
+
+
+deep neural network -> cnn(extract specific features from images, extract image features from traffic signs, steering angle etc)
+non linear boundaries
+linear -> not always accurate-> need for curves
+linear combination of two other linear models 
+multiply each linear model ny some weight
+combination of perceptrons
+--> curves
+in advanced we combine non linear models to get more complex output
+feed forward nn-> # layers == depth, activation fun -> relu
+lines combine to give curves
+
+
+
+
+
+multiclass classifiaction: softmax
+prediction of hand-written text
+prediction of traffic signs
+
+binarydatasets:
+perceptron dealth with linearly seperable data
+deep neural netwrok dealth with deep seperation of more complex data sets(curves to seperate data)
+
+multiclass -> more than two data classes
+we cannot use sigmoid activation function here
+we use softmax activation function
+
+0soccerball
+1baskeltball
+2volleyball
+
+random ball is given three scores, out of three highest will be output
+relative magnitudes must be maintained
+all probs must add upto 1
+
+we cannot use 0 1 2 to label our data as algorithm assumes dependency between classes
+label -> one hot encoding -> vector -> [1 0 0] [0 1 0] [0 0 1]
+
+cross entropy
+larger cross entropy -> larger the error
+
+true sb   bb   vb  labelled
+BT   B1   B2   B3
+
+sb   0.4  0.3  0.5
+bb   0.2  0.6  0.3
+vb   0.4  0.1  0.2
+
+b2 is accurate
+
+
+prob1 of ball1(which is actually a sb) being a sb is 0.4 40%
+
+ball2 = 0.6
+
+ball3 = 0.2
+
+-(ln(0.4) + ln(0.6) + ln(0.2)) = 3.04 higher CE higher error
+instead of binary CE we use categorical CE
+
+
+untill now only two features x1, x2
+from now we increase features
+
+training sets
+validating sets
+test sets
+
+image classification / mnist data set
+mnist dataset has large handwitten numbers that are labelled
+
+mnist -> 784 pixels i/p -> 10 classes 0-9 o/p
+picture 28*28 = 784 pixels / nodes on ip layer
+
+ip -> feedforward/hidden -> op layers
+
+not memorise but
+generalisation
+training error test error
+
+training error < test error
+the more we minimise training error the bigger the test error
+
+small training error -> underfitting
+
+gap b/w test and training error grows larger -> overfitting -> performs best(gives lees error) for training data and bad for test data
+
+regularization -> reduce generalization error
+
+hyperparameters-> learning rate, # nodes per layer etc
+
+validation set -> set of examples to tune the hyperparameters
+
+training set = 3x larger than validation set
+
+ANN -> decent accuracy-> if we try to  improve -> it results in overfitting
+not efficient for color images
+
+
+CNN -> image classification
+
+convnets
+
+facerecog obj detection etc
+
+spatial relevance(closer, farther pixels)
+
+convolution layer, pooling layer, fully connected layer
+kernel
+sliding kernel
+stride
+receptive field
+
+
+image
+100 100 255
+100 100 255
+100 100 255
+
+kernel
+0 -1 0
+-1 5 -1
+0 -1 0
+
+o/p = -55 / 9 = -6.1
+
+image -> kerenel operation -> feature map
+
+not just 1 but use different filters/kernels on single image 
+which give different feature map
+
+rgb 3 channel input -> kernrl 3x3x3
+
+image -> kernel -> detect edges
+same image -> different kernel -> some other feature like region of intrest
+
+72x72 = 5184 * 3 = 15552
+
+15k weights ANN
+
+27 weights CNN
+Relu
+
+iput feature map -> Rely -> rectified feature map
+
+vanishing gradient -> networks learns slowly if rate is small
+
+ \/
+ /\
+ 
+ / = 
+ 
+ -1 -1  1
+ -1  1 -1
+  1 -1 -1
+  
+  kernel 
+  
+  / back slash feature is preserved in [X] image
+  
+  sly with /, \ and X
+  
+original i/p -> 3 diff kernels/ \ and x -> 3 feature maps / filtered images -> relu
+
+pooling layer
+
+sum, avg, max
+
+decrease size
+scales down feature maps
+
+http://adamharley.com/nn_vis/cnn/3d.html
+
+augmented -> rotate, zoom in or combination of both to increase num of data points
+
+
+regression vs classification
+
+reg -> predict contionous values
+a number
+
+as we drive through simulation we take images 
+theese images are for training data set
+label foe each of image is steering angle
+these images are given to CNN
+
+behavorial cloning
+
+download simulator
+
+open simulator
+
+fastest + 800 x 600
+
+play
+
+
+training mode -> ourselves
+autonomous mode -> test
+
+drive -> record -> users -> desktop -> data
+
+collect data in driving the reverse direction also
+
+regression based problem
+
+add data folder to github in a new repo
+
+download data into colab
+.
+.
+.
+download model.h5
+craete drive.py file
+
+conda create --name myenviron
+activate myenviron
+conda activate myenviron
+conda install -c anaconda flask
+conda install -c conda-forge python-socketio
+conda install -c conda-forge eventlet
+python drive.py
+pip3 install “python-socketio<4.3” “python-engineio<3.9
+open simulator
+open in autonomous mode
+
+"prints connected"
+
+conda install -c conda-forge tensorflow
+conda install -c conda-forge keras
+conda install -c anaconda pillow
+conda install -c anaconda numpy
+conda install -c conda-forge keras
+conda install -c conda-forge opencv
+conda install -c conda-forge matplotlib
+conda install -c conda-forge python-utils
+
+
+Installation
+
+Anaconda Distribution – Windows
+
+Jupyter Notebooks
+
+NumPy
+
+Computer Vision: Finding Lane Lines
+
+Grayscale Conversion
+
+Smoothening Image
+
+Simple Edge Detection
+
+Region of Interest
+
+Binary Numbers & Bitwise_and
+
+Line Detection - Hough Transform
+
+Optimizing
+
+Finding Lanes on Video
+
+The Perceptron
+
+Machine Learning
+
+Supervised Learning
+
+Classification
+
+Linear Model
+
+Weights
+
+Error Function
+
+Sigmoid
+
+Cross Entropy
+
+Gradient Descent
+
+Keras
+
+Keras Models
+
+Keras – Predictions
+
+Deep Neural Networks
+
+Non-Linear Boundaries
+
+Architecture
+
+Feedforward Process
+
+Error Function
+
+Backpropagation
+
+Code Implementation
+
+Multiclass Classification
+
+Softmax
+
+Cross Entropy
+
+Implementation
+MNIST Image Recognition
+
+MNIST Dataset
+
+Train & Test
+
+Hyperparameters
+
+Implementation
+
+Convolutional Neural Networks
+
+Convolutions & MNIST
+
+Convolutional Layer
+
+Pooling
+
+Fully Connected Layer
+
+Code Implementation
+
+Classifying Road Symbols
+
+Preprocessing Images
+
+leNet Implementation
+
+Fine-tuning Model
+
+Testing
+
+Fit Generator
+
+Polynomial Regression
+
+Implementation
+
+Behavioural Cloning
+
+Collecting Data
+
+Downloading Data
+
+Balancing Data
+
+Training & Validation Split
+
+Preprocessing Images
+
+Defining Nvidia Model
+
+Flask & Socket.io
+
+Self Driving Car - Test 1
+
+Generator - Augmentation Techniques
+
+Batch Generator
+
+Fit Generator
+
+
+Convert the video frames to grayscale using cvtColor() function from OpenCV library.
+Apply Gaussian blur to smoothen the image using the GaussianBlur() function.
+Apply Canny edge detection on the image using the Canny() function to detect edges.
+Define a region of interest (ROI) in the image using a polygon. The ROI should include only the area where the lane lines are expected to be found.
+Use the bitwise_and() function to mask the image with the ROI, to obtain the edges detected only in the ROI.
+Apply Hough transform on the edges detected in the ROI using the HoughLinesP() function to detect lines.
+Separate the detected lines into left and right lane lines based on their slope.
+Compute the average slope and intercept of the left and right lane lines.
+Extrapolate the left and right lane lines to the bottom and top of the ROI by computing their x-intercepts using their slope and intercept.
+Draw the left and right lane lines on the original image using the line() function.
+
+
+
+cloning a Git repository containing German traffic sign images
+
+importing the necessary libraries for building a convolutional neural network (CNN) model for image classification. The libraries imported include NumPy for numerical operations, Matplotlib for data visualization, Keras for building the CNN model, and OpenCV for image processing.
+
+splitting the loaded data into input features and labels.The extracted input features are stored in X_train, X_val, and X_test variables, while the corresponding labels are stored in y_train, y_val, and y_test variables.
+
+checking if the dimensions of the images are 32 x 32 x 3, which is the expected size of the input images.
+
+visualizing the dataset by displaying a grid of images for each traffic sign class, along with its class ID and sign name.
+num_classes = 43
+{insert image}
+
+preprocess the images by converting them to grayscale, performing histogram equalization, and scaling the pixel values to be between 0 and 1. You reshape the preprocessed data to be of shape (num_samples, 32, 32, 1), where the last dimension represents that the image is grayscale.
+{insert image}
+
+The datagen object creates a generator that performs data augmentation on the training data. The augmentation techniques used include random shifts in the width and height dimensions, zooming, shearing and rotating.
+{insert image}
+
+implementation of the LeNet-5 architecture with some modifications to fit the problem of classifying traffic signs. The first convolutional layer has 30 filters of size 5x5 and uses ReLU activation. Then, a max pooling layer with size 2x2 is applied. The second convolutional layer has 15 filters of size 3x3 and also uses ReLU activation, followed by another max pooling layer with size 2x2. Finally, the output of the convolutional layers is flattened and passed to a fully connected layer with 500 units and ReLU activation, followed by a dropout layer with a rate of 0.5 to prevent overfitting. The output layer has 43 units, corresponding to the 43 classes of traffic signs, and uses softmax activation to output a probability distribution over the classes. The model is compiled with the Adam optimizer, a learning rate of 0.01, and the categorical crossentropy loss function, which is appropriate for multiclass classification problems. The accuracy metric is also used to monitor the performance of the model during training.
+
+
+modified_model()  The modifications include increasing the number of filters in the initial convolutional layers, adding more convolutional layers, and adjusting the number of neurons in the fully connected layers. The function also compiles the model using the Adam optimizer with a learning rate of 0.001
+
+
+modified model has a total of 378,023 parameters. The first layer has 1,560 parameters, followed by the second layer with 90,060 parameters. The third layer, a MaxPooling2D layer, has no parameters. The fourth layer has 16,230 parameters, and the fifth layer has 8,130 parameters. The sixth layer, another MaxPooling2D layer, has no parameters. The Flatten layer has no parameters. The seventh layer, a Dense layer, has 240,500 parameters, and the eighth layer has 21,543 parameters.
+{insert image}
+
+
+fitting the modified_model
+model will be trained for 10 epochs
+
+model seems to be performing very well with an accuracy of 98.73% on the validation set after 10 epochs. The training accuracy is also quite high, at 96.45%, indicating that the model is not overfitting
+{insert image}
+
+
+{insert image}
+{insert image}
+{insert image}
+
+
+Collect training data: Record images and steering angle data while driving the car manually.
+Preprocess data: Crop images, convert to YUV color space, blur, and resize. Normalize the image pixel values to be between 0 and 1.
+Split data into training and validation sets.
+Define a deep learning model to predict the steering angle from images.
+Train the model using the training set and validate using the validation set.
+Evaluate the model's performance on a test set (optional).
+Save the trained model to a file.
+Define a function to preprocess incoming images in the same way as the training data.
+Load the saved model from the file.
+Define a function to receive telemetry data (image and speed) from the simulator, preprocess the image, and use the model to predict the steering angle.
+Define a function to calculate the throttle value based on the current speed and a target speed.
+Define a function to send control commands (steering angle and throttle) to the simulator using socketio.
+Connect to the simulator using socketio and start receiving telemetry data.
+Preprocess the incoming image, predict the steering angle using the loaded model, calculate the throttle, and send control commands to the simulator.
+
+The training accuracy is the accuracy of the model on the training data, while the validation accuracy is the accuracy of the model on a separate validation dataset, which is not used in training.
+
+During the training process, the model tries to learn the patterns and features from the training data, and this is reflected in the training accuracy. As the training progresses, the training accuracy tends to increase.
+
+However, the model may not generalize well to new, unseen data, and this is where the validation accuracy comes in. The validation accuracy gives an estimate of how well the model can perform on new data, and it is used to prevent overfitting, which occurs when the model memorizes the training data too well and fails to generalize to new data.
+
+Ideally, the training accuracy and validation accuracy should increase together as the model learns to extract relevant features from the data. However, if the model starts to overfit, the training accuracy may continue to increase while the validation accuracy plateaus or even decreases.
+
+Therefore, the relationship between the training accuracy and validation accuracy can indicate if the model is overfitting or underfitting. If the training accuracy is much higher than the validation accuracy, it may be a sign of overfitting, and the model may need to be regularized or optimized to prevent overfitting.
+
+
+Validation accuracy higher than training accuracy is not a common scenario, but it can occur in some cases. This may indicate that the model is not overfitting, as it is able to generalize well to unseen data. This can be a good sign and suggest that the model is robust and not simply memorizing the training data.
+
+However, it is important to note that this can also be a result of other factors, such as data preprocessing or hyperparameter tuning. It's important to carefully analyze the results and try to identify the root cause of the observed behavior.
+
+
+
+
+
+
+
+
+Genetic Algorithm is a type of optimization algorithm that is inspired by the process of natural selection in genetics. It is a type of heuristic search algorithm that is used to find the optimal solution to a problem by mimicking the process of natural selection.
+
+In genetic algorithm, a population of potential solutions to a problem is randomly initialized, and each individual solution is represented as a string of genes, which can be thought of as parameters or variables. The population then undergoes a process of selection, crossover, and mutation, similar to how genes are selected, crossed over, and mutated in natural selection.
+
+In the selection process, individuals that have a higher fitness score (i.e., those that are closer to the optimal solution) are more likely to be chosen for reproduction. In the crossover process, two individuals are chosen to create a new individual by swapping some of their genes. In the mutation process, a small random change is introduced to an individual's genes to create a new individual.
+
+Through these processes, the population evolves over generations, with the hope that the individuals will converge towards the optimal solution to the problem. The fitness function, which evaluates how well an individual solution performs, is a key component of the algorithm, and is used to guide the selection process.
+
+Genetic algorithm has been used in a variety of fields, including engineering, computer science, finance, and biology. It is particularly useful in problems where the solution space is large and complex, and where traditional optimization techniques may not be effective.
+
+
+
+Define canvas elements and their contexts to draw objects.
+Create a road object.
+Generate N number of car objects with an "AI" tag.
+Define a dummy car object for traffic.
+Load the best-performing car's neural network model from the local storage.
+Run the animate() function to continuously update the car and road objects' positions.
+For each car, update their position and check for collisions with the road borders and other cars.
+Update the best car based on its y position.
+Draw the road, cars, and traffic objects in the canvas using the draw() method of each object.
+Draw the best car with a higher opacity to distinguish it from other cars.
+Visualize the best car's neural network on the network canvas.
+Call requestAnimationFrame() to run the animate() function repeatedly.
+Provide save() and discard() functions to store and remove the best-performing car's neural network from local storage, respectively.
+
+ The Society of Automotive Engineers (SAE) has defined six levels of autonomous driving, from Level 0 to Level 5, based on the amount of human intervention required.
+
+Level 0: No Automation: The driver is responsible for all aspects of driving.
+
+Level 1: Driver Assistance: The system can control either the acceleration or the steering, but not both simultaneously. The driver is responsible for all other aspects of driving.
+
+Level 2: Partial Automation: The system can control both the acceleration and the steering simultaneously, but the driver must remain alert and ready to take control at any time.
+
+Level 3: Conditional Automation: The system can take full control of the vehicle in certain situations, but the driver must be prepared to intervene if the system encounters a scenario it cannot handle.
+
+Level 4: High Automation: The system can take full control of the vehicle in most driving scenarios, and the driver is not required to be constantly alert.
+
+Level 5: Full Automation: The system can handle all driving scenarios, and there is no need for a driver at all.
+
+As of now, most autonomous vehicles are at Level 2 or Level 3, which means that they still require human intervention in certain situations. However, there is ongoing research and development to achieve Level 4 or Level 5 autonomy, which would mean that the vehicle is capable of operating without any human input.
+Achieving higher levels of autonomy would require advancements in technology such as
+
+Integration with advanced sensors: Integration of advanced sensors like LiDAR, RADAR, and ultrasonic sensors to provide more accurate and reliable data for the autonomous driving system.
+
+Robustness to complex environments: Improving the robustness of the self-driving car system to complex environments such as snow, rain, and fog, where the sensors and cameras might not function as expected.
+
+Implementation of more advanced algorithms and techniques for object detection and collision avoidance, such as reinforcement learning and object tracking.
+
+Additionally, there is also a potential for the use of autonomous vehicles in other industries, such as transportation and logistics. This could include self-driving trucks for shipping and delivery, or autonomous drones for aerial transportation. The possibilities for autonomous vehicles are vast, and there is still much to explore and develop in this field.
+
+In conclusion, this project aimed to design and implement a self-driving car system using computer vision and deep learning techniques. The project successfully achieved its objectives by developing and fine-tuning convolutional neural networks for image recognition and lane detection, training a deep neural network for behavior cloning, and implementing real-time control using Flask and Socket.io for communication between the car and server. The project achieved high accuracy rates in image recognition and lane detection tasks, and the knowledge gained in computer vision, deep learning, and autonomous systems can be applied to further develop the technology for future self-driving vehicles. Overall, the project was a success and demonstrated the potential for self-driving cars to revolutionize the transportation industry.
+
+P. M. Castro, L. C. de Oliveira and R. C. Dórea, "Development of a Self-Driving Car using Deep Learning," 2020 IEEE International Conference on Autonomous Robot Systems and Competitions (ICARSC), Porto, Portugal, 2020, pp. 107-112, doi: 10.1109/ICARSC49135.2020.9090331.
+
+R. Arora, N. Taneja and A. Garg, "Self-Driving Car: A Journey from Perception to Control," 2020 International Conference on Communication, Computing and Networking (ICCCN), Big Island, HI, USA, 2020, pp. 1-6, doi: 10.1109/ICCCN49319.2020.9209777.
+
+L. H. M. C. Costa, M. P. Ramos, P. R. P. Coelho and A. S. Silva, "Development of a Self-Driving Car Prototype using ROS and Machine Learning," 2020 International Joint Conference on Neural Networks (IJCNN), Glasgow, United Kingdom, 2020, pp. 1-8, doi: 10.1109/IJCNN48605.2020.9207552.
+
+S. Yang, Y. Han and S. Lee, "A Study on Self-Driving Car Navigation System Using Real-Time Image Recognition," in IEEE Access, vol. 9, pp. 35213-35221, 2021, doi: 10.1109/ACCESS.2021.3069786.
+
+R. R. Raj, A. Z. A. Basar and N. N. Ariffin, "A Review on Control Approaches for Autonomous Vehicles," in IEEE Access, vol. 8, pp. 26057-26075, 2020, doi: 10.1109/ACCESS.2020.2973116.
+
+
+The Perceptron: It is a basic building block of neural networks that is used for binary classification. It takes inputs and weights, applies a step function to the sum of the inputs multiplied by their respective weights, and produces an output.
+
+Machine Learning: It is the study of algorithms and statistical models that enable computer systems to learn from data without being explicitly programmed.
+
+Supervised Learning: It is a type of machine learning where the algorithm learns from labeled data, i.e., data where the output is known, and tries to predict the output for new inputs.
+
+Classification: It is a type of supervised learning problem where the goal is to classify data into predefined categories or classes.
+
+Linear Model: It is a mathematical model that assumes a linear relationship between the input variables and the output variable.
+
+Cross Entropy: It is a measure of the difference between two probability distributions. In machine learning, it is commonly used as a loss function for classification problems.
+
+Gradient Descent: It is an optimization algorithm used to minimize a loss function by iteratively adjusting the model parameters in the direction of steepest descent.
+
+Keras – Predictions: Keras is a high-level neural networks API that is used for rapid prototyping and development of deep learning models. Predictions in Keras refer to the output generated by a trained model for new inputs.
+
+Deep Neural Networks: They are neural networks that have multiple layers of neurons, enabling them to learn complex representations of data.
+
+Non-Linear Boundaries: They are decision boundaries that are not linear, meaning they cannot be described by a linear equation.
+
+Feedforward Process: It is the process by which the inputs are propagated through the neural network, layer by layer, to produce the output.
+
+Backpropagation: It is an algorithm used to train neural networks by computing the gradient of the loss function with respect to the model parameters and updating the parameters in the opposite direction of the gradient.
+
+Multiclass Classification: It is a type of classification problem where the goal is to classify data into more than two classes.
+
+Softmax: It is a function that takes a vector of numbers as input and produces a probability distribution as output, where each element of the output vector represents the probability of the corresponding class.
+
+Convolutional Neural Networks: They are neural networks that are specifically designed for image processing tasks. They use convolutional layers to automatically learn spatial features from the input images.
+
+Convolutional Layer: It is a layer in a convolutional neural network that performs the convolution operation, i.e., it applies a set of filters to the input image to produce a set of feature maps.
+
+Pooling: It is a downsampling operation used in convolutional neural networks to reduce the spatial dimensions of the feature maps and extract the most important features.
+
+Fully Connected Layer: It is a layer in a neural network where all the neurons are connected to all the neurons in the previous layer, enabling the network to learn complex non-linear mappings between the input and output.
+
+
+The literature survey for this project involved researching various topics related to self-driving cars and computer vision. The survey highlighted the importance of deep learning techniques such as convolutional neural networks (CNNs) for object recognition, lane detection, and behavior cloning. It also emphasized the use of real-time control systems such as Flask and Socket.io for communication between the car and server.
+
+Additionally, the survey covered the various levels of autonomous vehicles, including Level 0 (no automation) to Level 5 (full automation). It discussed the current state of the industry and the challenges that need to be addressed for the widespread adoption of self-driving cars.
+
+Furthermore, the survey explored the different software tools and libraries used in the project, such as Anaconda, NumPy, OpenCV, Keras, and TensorFlow. It also highlighted the importance of data preprocessing techniques such as image augmentation for improving the accuracy of deep learning models.
+
+Overall, the literature survey provided a comprehensive understanding of the state-of-the-art techniques and technologies used in self-driving cars and their applications. It helped to identify the gaps and opportunities for further research in this field.

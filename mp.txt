@@ -1,0 +1,89 @@
+CARLA: Open-source simulator for autonomous driving research.
+
+import cv2
+import numpy as np
+
+image = cv2.imread("test_image.jpg")
+
+lane_image = np.copy(image)  # different from image
+
+gray = cv2.cvtColor(lane_image, cv2.COLOR_RGB2GRAY)
+
+blur = cv2.GaussianBlur(gray, (5, 5), 0)
+
+canny = cv2.Canny(blur, 50, 150)  # identify strongest gradients
+# cv2.imshow('result', image)
+# cv2.imshow('result', gray)
+# cv2.imshow('result', blur)
+cv2.imshow('result', canny)
+
+
+cv2.waitKey(0)
+
+
+edge detection: identifying sharp changes in intensity in adjacent pixels
+
+0 black
+255 white
+
+gradient: measure of change in brightness over adjacent pixels
+strong gradient 0->255 steep change
+small gradient 0->15 shallow change
+
+edge: rapid change in brightmess, strong gradient
+
+color image 3 typically channels(RGB)
+step1: convert image to greyscale(0-255) single channel
+faster,less computaionally intensive
+
+step2: reduce noise/ smoothen
+gausian filter/blur
+modify value of a pixel by avging neighboring pixdels
+kernel/window
+5 x 5 kernel
+
+
+step3: apply cannymethod to find edge
+
+image = f(x, y) mathematical fun in x(cols) and y(rows)
+
+a fun of pixel intensities in all directions x and y
+
+derivative(f(x, y)) gradients
+large change = large derivative
+
+
+step4: finding lane lines / region of intrest(triangle)
+
+step5: finding lane lines / bitwise and
+
+canny [bitwise and &] region of intrest
+
+edges in ROI only will be highlighted ->>contour
+
+step6: finding lane lines / hough transform
+
+y = mx + c; (x, y)
+c-> y intercept
+hough space (b, m)
+
+line in linear is point in hough space and vice versa
+
+rho = xcostheta + ysintheta
+
+bin with max number of votes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

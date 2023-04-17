@@ -1,0 +1,412 @@
+numpy
+
+jupyter notebook ->conda terminal
+jupyter lab
+
+new py3 notebook
+
+array-> homogenous, vectorised operations( [1 2 3] + [1 2 3] = [2 4 6] )
+
+l = list(range(1,4))
+**number not allowed with lists
+arr = np.arrange(1,4) ** 3
+np.power(np.array([1,2,3]), 4)
+np.negative()
+np.exp()
+np.log()
+np.sin()
+arange -> array
+range -> list
+
+x = np.arange(3)
+y = np.arange(3, 6)
+z = np.arange(6,9)
+marray = np.array([x,y,z])
+
+marray = np.array([x,y,z], dtype = np.int16)
+marray.shape
+
+marray[1, 2]
+
+marray.dtype
+
+w = np.linspace(1, 10, 50, False)
+
+
+x = np.arange(9)
+
+x[2,1]
+x = np.arange(9).reshape(3,3)
+
+x = np.arange(9).reshape(3,-1) -> -1 === unkown
+
+x = np.arange(18).reshape(2,3,3) (3,3,2) 2 different arrays
+
+(3,2,3)
+
+x[1,1,1]
+
+
+x.ravel() -> flats, modifies original array
+
+x.flatten() -> copy of the array
+
+
+x.transpose()
+x.T
+np.ones
+np.zeroes
+np.eye
+
+mat_a = np.matrix([0,3,5,5,5,2]).reshape(2,3)
+
+mat_b = np.matrix([3,4,3,5,5,2]).reshape(3,2)
+
+mat_a * mat_b
+np.matmul(mat_a, mat_b)
+
+
+np.hstack((x,y))
+
+
+
+
+
+ML-> ability to learn with data
+
+Supervised(correct labels), unsupervised(unlabelled)
+
+linear regression y = mx + c
+classification
+
+bloodsugar classification problem
+
+x1 x2 -> inpts
+
+x1 -> age
+x2 -> blood glucose levels
+
+model -0.02 * x1 - 2 * x2 + 6
+
+model = w1 * x1 + w2 * x2 + bias
+line with minimal error
+score (threshold) 1 or 0
+
+
+
+
+perceptron
+
+
+inputs -> perceptron -> output
+
+x1, x2 -> -0.02 * x1 - 2 * x2 + 6 -> 0 or 1
+
+y` { 1 if score>=0 positive [or] 0 if score < 0 negative}.
+
+
+inputs x1, x2, bias(1)
+
+x1 * w1
+x2 * w2
+1 * b
+linear combination of inputs
+
+Activationn fyuncton -> decides output
+
+stepfunction
+
+weights -> importance of input
+
+age has less effect than blood sugar levels
+
+
+
+error function
+
+in every iteration model is trained
+to adjust weights 
+
+tiny steps of adjusting -> learning rate
+
+sigmoid -> probability / likelyness
+1 / (1 + e ^ -z)
+
+z = 0.3 => 57%
+
+
+Cross Entropy
+
+
+1) blue red [line] blue red
+2) blue blue [line] red red
+
+
+1) blue90% red80% [line] blue40% red45%
+2) blue95% blue70% [line] red43 red40
+
+
+
+p(red) = 1 - p(blue)
+
+
+1) blue90% red20% [line] blue40% red55
+2) blue95 blue70 [line] red57 red60 classified correctly
+
+red20% -> 20% likely of being red
+
+ln(p(red)) + ln(p(blue)) = CE
+
+good model low CE
+
+- Esigma {yln(p) + (1-y)ln(1-p)}
+
+
+Gradient Descent -> derivatives/differentiation
+
+Keras -> opensource neural network library written in python
+
+keras on tensorflow
+
+pip install tensorflow -> git bash
+
+pip install keras
+
+
+batch/vanila gradient descent computes on entire vector -> proper learning ratealso single learning rate
+
+stochastic is optimised
+
+Adam uses stochastic -> adaptive learning rate
+
+epoch -> iteration over entire dataset
+
+divide one epoch into batches as epoch is too big
+
+1000 datapoints
+batch size = 50
+20 iterations to complete one epoch
+
+epochs less -> underfit
+more -> overfit
+epochs -> optimal amount
+
+
+
+
+deep neural network -> cnn(extract specific features from images, extract image features from traffic signs, steering angle etc)
+non linear boundaries
+linear -> not always accurate-> need for curves
+linear combination of two other linear models 
+multiply each linear model ny some weight
+combination of perceptrons
+--> curves
+in advanced we combine non linear models to get more complex output
+feed forward nn-> # layers == depth, activation fun -> relu
+lines combine to give curves
+
+
+
+
+
+multiclass classifiaction: softmax
+prediction of hand-written text
+prediction of traffic signs
+
+binarydatasets:
+perceptron dealth with linearly seperable data
+deep neural netwrok dealth with deep seperation of more complex data sets(curves to seperate data)
+
+multiclass -> more than two data classes
+we cannot use sigmoid activation function here
+we use softmax activation function
+
+0soccerball
+1baskeltball
+2volleyball
+
+random ball is given three scores, out of three highest will be output
+relative magnitudes must be maintained
+all probs must add upto 1
+
+we cannot use 0 1 2 to label our data as algorithm assumes dependency between classes
+label -> one hot encoding -> vector -> [1 0 0] [0 1 0] [0 0 1]
+
+cross entropy
+larger cross entropy -> larger the error
+
+true sb   bb   vb  labelled
+BT   B1   B2   B3
+
+sb   0.4  0.3  0.5
+bb   0.2  0.6  0.3
+vb   0.4  0.1  0.2
+
+b2 is accurate
+
+
+prob1 of ball1(which is actually a sb) being a sb is 0.4 40%
+
+ball2 = 0.6
+
+ball3 = 0.2
+
+-(ln(0.4) + ln(0.6) + ln(0.2)) = 3.04 higher CE higher error
+instead of binary CE we use categorical CE
+
+
+untill now only two features x1, x2
+from now we increase features
+
+training sets
+validating sets
+test sets
+
+image classification / mnist data set
+mnist dataset has large handwitten numbers that are labelled
+
+mnist -> 784 pixels i/p -> 10 classes 0-9 o/p
+picture 28*28 = 784 pixels / nodes on ip layer
+
+ip -> feedforward/hidden -> op layers
+
+not memorise but
+generalisation
+training error test error
+
+training error < test error
+the more we minimise training error the bigger the test error
+
+small training error -> underfitting
+
+gap b/w test and training error grows larger -> overfitting -> performs best(gives lees error) for training data and bad for test data
+
+regularization -> reduce generalization error
+
+hyperparameters-> learning rate, # nodes per layer etc
+
+validation set -> set of examples to tune the hyperparameters
+
+training set = 3x larger than validation set
+
+ANN -> decent accuracy-> if we try to  improve -> it results in overfitting
+not efficient for color images
+
+
+CNN -> image classification
+
+convnets
+
+facerecog obj detection etc
+
+spatial relevance(closer, farther pixels)
+
+convolution layer, pooling layer, fully connected layer
+kernel
+sliding kernel
+stride
+receptive field
+
+
+image
+100 100 255
+100 100 255
+100 100 255
+
+kernel
+0 -1 0
+-1 5 -1
+0 -1 0
+
+o/p = -55 / 9 = -6.1
+
+image -> kerenel operation -> feature map
+
+not just 1 but use different filters/kernels on single image 
+which give different feature map
+
+rgb 3 channel input -> kernrl 3x3x3
+
+image -> kernel -> detect edges
+same image -> different kernel -> some other feature like region of intrest
+
+72x72 = 5184 * 3 = 15552
+
+15k weights ANN
+
+27 weights CNN
+Relu
+
+iput feature map -> Rely -> rectified feature map
+
+vanishing gradient -> networks learns slowly if rate is small
+
+ \/
+ /\
+ 
+ / = 
+ 
+ -1 -1  1
+ -1  1 -1
+  1 -1 -1
+  
+  kernel 
+  
+  / back slash feature is preserved in [X] image
+  
+  sly with /, \ and X
+  
+original i/p -> 3 diff kernels/ \ and x -> 3 feature maps / filtered images -> relu
+
+pooling layer
+
+sum, avg, max
+
+decrease size
+scales down feature maps
+
+http://adamharley.com/nn_vis/cnn/3d.html
+
+augmented -> rotate, zoom in or combination of both to increase num of data points
+
+
+regression vs classification
+
+reg -> predict contionous values
+a number
+
+as we drive through simulation we take images 
+theese images are for training data set
+label foe each of image is steering angle
+these images are given to CNN
+
+behavorial cloning
+
+download simulator
+
+open simulator
+
+fastest + 800 x 600
+
+play
+
+
+training mode -> ourselves
+autonomous mode -> test
+
+drive -> record -> users -> desktop -> data
+
+collect data in driving the reverse direction also
+
+regression based problem
+
+add data folder to github in a new repo
+
+download data into colab
+.
+.
+.
+download model.h5
+
+
+conda create --name myenviron
